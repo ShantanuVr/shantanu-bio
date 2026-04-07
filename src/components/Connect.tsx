@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import anime from "animejs";
 import { Mail, Phone, ExternalLink } from "lucide-react";
 
 function GitHubIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
@@ -85,7 +86,7 @@ function MagneticIcon({
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="w-16 h-16 md:w-20 md:h-20 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-200"
+      className="magnetic-icon w-16 h-16 md:w-20 md:h-20 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-200"
       style={{
         boxShadow: `0 0 0px ${color}00`,
       }}
@@ -100,7 +101,57 @@ function MagneticIcon({
 
 export default function Connect() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const iconsRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!isInView || hasAnimated.current) return;
+    hasAnimated.current = true;
+
+    anime({
+      targets: headingRef.current,
+      opacity: [0, 1],
+      translateY: [40, 0],
+      duration: 800,
+      easing: "easeOutExpo",
+    });
+
+    const icons = iconsRef.current?.querySelectorAll(".magnetic-icon");
+    if (icons) {
+      anime({
+        targets: icons,
+        opacity: [0, 1],
+        scale: [0, 1],
+        duration: 600,
+        easing: "easeOutElastic(1, .5)",
+        delay: anime.stagger(100, { start: 400 }),
+      });
+    }
+
+    const cards = cardsRef.current?.querySelectorAll(".contact-card");
+    if (cards) {
+      anime({
+        targets: cards,
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 600,
+        easing: "easeOutExpo",
+        delay: anime.stagger(100, { start: 800 }),
+      });
+    }
+
+    anime({
+      targets: footerRef.current,
+      opacity: [0, 1],
+      duration: 800,
+      easing: "easeOutQuad",
+      delay: 1200,
+    });
+  }, [isInView]);
 
   return (
     <section
@@ -109,12 +160,7 @@ export default function Connect() {
       ref={sectionRef}
     >
       <div className="max-w-4xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
+        <div ref={headingRef} className="mb-16" style={{ opacity: 0 }}>
           <p className="font-mono text-neon-purple text-sm tracking-widest mb-2">
             // SECTION_05
           </p>
@@ -126,15 +172,10 @@ export default function Connect() {
             Open to collaboration on AI-driven QA innovations, multi-agent
             systems, and automation architecture.
           </p>
-        </motion.div>
+        </div>
 
         {/* Floating magnetic icons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex justify-center gap-6 md:gap-10 mb-16"
-        >
+        <div ref={iconsRef} className="flex justify-center gap-6 md:gap-10 mb-16">
           {socials.map((social) => (
             <MagneticIcon
               key={social.label}
@@ -147,25 +188,18 @@ export default function Connect() {
               />
             </MagneticIcon>
           ))}
-        </motion.div>
+        </div>
 
         {/* Contact details */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto"
-        >
-          {socials.map((social, i) => (
-            <motion.a
+        <div ref={cardsRef} className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {socials.map((social) => (
+            <a
               key={social.label}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 15 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6 + i * 0.1 }}
-              className="glass rounded-lg p-4 flex items-center gap-4 group hover:border-neon-blue/30 transition-all duration-300"
+              className="contact-card glass rounded-lg p-4 flex items-center gap-4 group hover:border-neon-blue/30 transition-all duration-300"
+              style={{ opacity: 0 }}
             >
               <social.icon
                 className="w-5 h-5 shrink-0"
@@ -180,26 +214,21 @@ export default function Connect() {
                 </p>
               </div>
               <ExternalLink className="w-4 h-4 text-foreground/20 group-hover:text-neon-blue transition-colors shrink-0" />
-            </motion.a>
+            </a>
           ))}
-        </motion.div>
+        </div>
 
         {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 1 }}
-          className="mt-24 font-mono text-xs text-foreground/20"
-        >
+        <div ref={footerRef} className="mt-24 font-mono text-xs text-foreground/20" style={{ opacity: 0 }}>
           <p>
             &gt; designed & built by{" "}
             <span className="text-neon-blue/40">Shantanu Vichare</span> •{" "}
             {new Date().getFullYear()}
           </p>
           <p className="mt-1">
-            &gt; powered by Next.js + Three.js + Framer Motion
+            &gt; powered by Next.js + Three.js + anime.js
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
