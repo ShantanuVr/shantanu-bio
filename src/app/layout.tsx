@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Shantanu Vichare — 11 years of QA leadership, AI Context Graph Architecture, and Multi-Agent Ecosystems.",
   keywords: ["AI", "QA", "Automation", "Playwright", "MCP", "Portfolio"],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/apple-icon.svg",
+  },
 };
 
 export default function RootLayout({
