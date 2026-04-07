@@ -216,10 +216,10 @@ function TimelineCard({
           {exp.highlights.map((h, j) => (
             <li
               key={j}
-              className="highlight-item text-sm text-foreground/60 flex gap-3"
+              className="highlight-item grid grid-cols-[auto_1fr] items-start gap-3 text-sm leading-relaxed text-foreground/60"
               style={{ opacity: 0 }}
             >
-              <span className="text-neon-blue mt-1 shrink-0">▹</span>
+              <span className="pt-[2px] text-neon-blue">▹</span>
               {h}
             </li>
           ))}
