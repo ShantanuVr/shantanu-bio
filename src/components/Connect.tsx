@@ -47,7 +47,7 @@ const socials = [
     icon: LinkedInIcon,
     label: "LinkedIn",
     value: "Shantanu Vichare",
-    href: "https://www.linkedin.com/in/shantanuvichare/",
+    href: "https://www.linkedin.com/in/shantanuvr/",
     color: "#0077b5",
   },
 ];
