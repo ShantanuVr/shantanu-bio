@@ -14,9 +14,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shantanu Vichare | AI Automation Architect & QA Leader",
+  title: "Shantanu Vichare | Lead SDET & AI Quality Engineering Pioneer",
   description:
-    "Portfolio of Shantanu Vichare — 11 years of QA leadership, AI Context Graph Architecture, and Multi-Agent Ecosystems.",
+    "Portfolio of Shantanu Vichare — 10+ years of QA leadership, self-healing test pipelines, AI Context Graph, and Multi-Agent Ecosystems.",
   keywords: ["AI", "QA", "Automation", "Playwright", "MCP", "Portfolio"],
   icons: {
     icon: "/favicon.svg",

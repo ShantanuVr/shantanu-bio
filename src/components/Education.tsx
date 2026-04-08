@@ -65,6 +65,7 @@ export default function Education() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const mscCardRef = useRef<HTMLDivElement>(null);
+  const pgCardRef = useRef<HTMLDivElement>(null);
   const beCardRef = useRef<HTMLDivElement>(null);
   const certsContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -101,13 +102,23 @@ export default function Education() {
     });
 
     anime({
-      targets: beCardRef.current,
+      targets: pgCardRef.current,
       opacity: [0, 1],
       translateY: [30, 0],
       scale: [0.96, 1],
       duration: 800,
       easing: "easeOutExpo",
       delay: 400,
+    });
+
+    anime({
+      targets: beCardRef.current,
+      opacity: [0, 1],
+      translateY: [30, 0],
+      scale: [0.96, 1],
+      duration: 800,
+      easing: "easeOutExpo",
+      delay: 550,
     });
 
     anime({
@@ -180,6 +191,29 @@ export default function Education() {
             </div>
 
             <div
+              ref={pgCardRef}
+              className="glass rounded-lg p-6"
+              style={{ opacity: 0 }}
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-lg bg-neon-pink/10 border border-neon-pink/20">
+                  <GraduationCap className="w-6 h-6 text-neon-pink" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg">
+                    PG Diploma in AI & ML
+                  </h3>
+                  <p className="text-sm text-foreground/50">
+                    IIIT Bangalore
+                  </p>
+                  <p className="font-mono text-xs text-foreground/30 mt-1">
+                    2025–2026
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
               ref={beCardRef}
               className="glass rounded-lg p-6"
               style={{ opacity: 0 }}
@@ -196,7 +230,7 @@ export default function Education() {
                     Shah & Anchor Kutchhi Engineering College • Mumbai
                   </p>
                   <p className="font-mono text-xs text-foreground/30 mt-1">
-                    Graduated: 2015
+                    2012–2015
                   </p>
                 </div>
               </div>

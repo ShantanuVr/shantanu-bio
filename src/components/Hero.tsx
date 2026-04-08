@@ -144,14 +144,14 @@ export default function Hero() {
 
         <div ref={subtitleRef} className="flex flex-col items-center gap-3" style={{ opacity: 0 }}>
           <p className="text-xl md:text-2xl text-foreground/70 font-light">
-            AI Automation Architect{" "}
-            <span className="text-neon-purple">&</span> QA Leader
+            Lead SDET{" "}
+            <span className="text-neon-purple">&</span> AI Quality Engineering Pioneer
           </p>
         </div>
 
         <div ref={statusRef} className="mt-3 font-mono text-sm text-foreground/40 flex items-center justify-center gap-2" style={{ opacity: 0 }}>
           <span className="inline-block w-2 h-2 rounded-full bg-neon-blue animate-pulse" />
-          <span>11 years of engineering excellence</span>
+          <span>10+ years of engineering excellence</span>
           <span className="text-neon-purple">@</span>
           <span className="text-neon-blue">PowerSchool</span>
         </div>
