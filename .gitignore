@@ -48,3 +48,4 @@ next-env.d.ts
 .dev.vars*
 !.dev.vars.example
 !.env.example
+INTERVIEW_PREP_CI_ENGINEER.md
