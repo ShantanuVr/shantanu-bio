@@ -33,12 +33,20 @@ const sections: { title: string; items: { href: string; label: string }[] }[] = 
     ],
   },
   {
-    title: "The Vamsi Round",
+    title: "Panel 1 · Vamsi",
     items: [
       { href: "/met-prep/vamsi", label: "Profile + signals" },
       { href: "/met-prep/vamsi-script", label: "30-min tactical script" },
       { href: "/met-prep/opener", label: "90-sec opener" },
       { href: "/met-prep/ask-vamsi", label: "Questions to ask him" },
+    ],
+  },
+  {
+    title: "Panel 2 · Fraser",
+    items: [
+      { href: "/met-prep/fraser", label: "Profile + themes" },
+      { href: "/met-prep/fraser-script", label: "90-min tactical script" },
+      { href: "/met-prep/ask-fraser", label: "Questions to ask him" },
     ],
   },
   {

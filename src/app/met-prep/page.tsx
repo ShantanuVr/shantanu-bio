@@ -11,13 +11,22 @@ const groups = [
     ],
   },
   {
-    title: "The Vamsi round (priority)",
+    title: "Panel 1 · Vamsi (VP, values round)",
     color: "#fbbf24",
     items: [
       { href: "/met-prep/vamsi", label: "Profile + signals", desc: "Career arc, what he optimizes for, his commits." },
       { href: "/met-prep/vamsi-script", label: "30-min tactical script", desc: "Question-by-question scaffolds, anchored to your resume." },
       { href: "/met-prep/opener", label: "90-sec opener", desc: "The 4-beat opening you'll deliver." },
       { href: "/met-prep/ask-vamsi", label: "Questions to ask him", desc: "3 picks, in order. Lead with the four-axis one." },
+    ],
+  },
+  {
+    title: "Panel 2 · Fraser (DevEx peer round)",
+    color: "#f472b6",
+    items: [
+      { href: "/met-prep/fraser", label: "Profile + themes", desc: "Commit history, 5 themes, team shape, risk disarms." },
+      { href: "/met-prep/fraser-script", label: "90-min tactical script", desc: "Round flow + Q1-Q8 scaffolds + screen-share beats + closing." },
+      { href: "/met-prep/ask-fraser", label: "Questions to ask him", desc: "Lead with the affected-tests rollout question." },
     ],
   },
   {
