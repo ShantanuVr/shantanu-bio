@@ -12,6 +12,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: person.name,
+  url: person.url,
   jobTitle: "Lead Quality Assurance Engineer",
   worksFor: { "@type": "Organization", name: "PowerSchool" },
   email: `mailto:${person.email}`,

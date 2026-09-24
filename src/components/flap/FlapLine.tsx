@@ -7,7 +7,8 @@ import { bindCell, flipTo, setInstant, type FlapCell } from "./engine";
 
 export type FlapTone = "paint" | "live" | "fault";
 
-/** Static markup for one module. The engine animates it by writing --p and glyph text. */
+/** Static markup for one module. The engine animates it by writing --p and data-ch. Glyphs
+ *  are drawn from data-ch by CSS, so crawlers read the line's text once, not four times a letter. */
 export function FlapModule({
   ch,
   tone = "paint",
@@ -17,17 +18,17 @@ export function FlapModule({
   return (
     <span className="flap" data-tone={tone} {...data}>
       <span className="flap-half flap-top">
-        <span className="flap-glyph" {...raise}>{ch}</span>
+        <span className="flap-glyph" data-ch={ch} {...raise} />
       </span>
       <span className="flap-half flap-bottom">
-        <span className="flap-glyph" {...raise}>{ch}</span>
+        <span className="flap-glyph" data-ch={ch} {...raise} />
       </span>
       <span className="flap-leaf">
         <span className="flap-half flap-front">
-          <span className="flap-glyph" {...raise}>{ch}</span>
+          <span className="flap-glyph" data-ch={ch} {...raise} />
         </span>
         <span className="flap-half flap-back">
-          <span className="flap-glyph" {...raise}>{ch}</span>
+          <span className="flap-glyph" data-ch={ch} {...raise} />
         </span>
       </span>
     </span>

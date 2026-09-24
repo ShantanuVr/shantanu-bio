@@ -1,5 +1,5 @@
 // One animation loop for every DOM split-flap on the page. Each module writes a single
-// custom property (--p) per frame and touches text only when a step lands.
+// custom property (--p) per frame and touches glyphs (data-ch) only when a step lands.
 import { DRUM, RAISED, drumPath } from "@/lib/drum";
 import { flapSound } from "@/lib/sound";
 
@@ -40,7 +40,7 @@ export function bindCell(root: HTMLElement, current: number): FlapCell {
 }
 
 function write(node: HTMLElement, ch: string) {
-  node.textContent = ch;
+  node.dataset.ch = ch;
   if (RAISED.has(ch)) node.dataset.raise = "";
   else delete node.dataset.raise;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, FileText, Mail, Menu, X } from "lucide-react";
 import { person } from "@/content/profile";
 import { getLenis } from "@/lib/scroll";
 import { FlapLink } from "@/components/flap/FlapButton";
@@ -96,6 +96,7 @@ export default function SiteNav() {
             <span className="sr-only">, PDF, opens in a new tab</span>
           </a>
           <FlapLink size="sm" variant="primary" href={`mailto:${person.email}`} label={`Email me at ${person.email}`}>
+            <Mail aria-hidden="true" size={16} strokeWidth={2} />
             Email me
           </FlapLink>
         </div>
@@ -130,9 +131,11 @@ export default function SiteNav() {
           </ul>
           <div className="mobile-menu-actions">
             <FlapLink variant="primary" href={`mailto:${person.email}`} label={`Email me at ${person.email}`}>
+              <Mail aria-hidden="true" size={18} strokeWidth={2} />
               Email me
             </FlapLink>
             <FlapLink href={person.resume} label="Resume, PDF, opens in a new tab" external>
+              <FileText aria-hidden="true" size={18} strokeWidth={2} />
               Resume
               <ArrowUpRight aria-hidden="true" size={18} strokeWidth={2} />
             </FlapLink>

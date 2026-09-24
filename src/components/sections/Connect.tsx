@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInViewOnce } from "@/lib/inview";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FileText, Mail, Phone } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { connect, person } from "@/content/profile";
 import { FlapLink } from "@/components/flap/FlapButton";
 import FlapLine from "@/components/flap/FlapLine";
@@ -51,6 +52,7 @@ export default function Connect() {
           ref={boardRef}
           type="button"
           className="board connect-board on-board"
+          data-copied={copied}
           onClick={copy}
           aria-label={`Copy email address ${person.email}`}
           aria-describedby="connect-hint"
@@ -83,29 +85,34 @@ export default function Connect() {
 
         <div className="connect-actions">
           <FlapLink variant="primary" href={`mailto:${person.email}`} label={`Email me at ${person.email}`}>
+            <Mail aria-hidden="true" size={18} strokeWidth={2} />
             Email me
           </FlapLink>
           <ul className="connect-links">
             <li>
               <a href={person.linkedin} target="_blank" rel="noopener noreferrer">
+                <LinkedinIcon size={18} strokeWidth={1.75} />
                 LinkedIn
                 <ArrowUpRight aria-hidden="true" size={16} strokeWidth={2} />
               </a>
             </li>
             <li>
               <a href={person.github} target="_blank" rel="noopener noreferrer">
+                <GithubIcon size={18} strokeWidth={1.75} />
                 GitHub
                 <ArrowUpRight aria-hidden="true" size={16} strokeWidth={2} />
               </a>
             </li>
             <li>
               <a href={person.resume} target="_blank" rel="noopener noreferrer">
+                <FileText aria-hidden="true" size={18} strokeWidth={1.75} />
                 Resume (PDF)
                 <ArrowUpRight aria-hidden="true" size={16} strokeWidth={2} />
               </a>
             </li>
             <li>
               <a href={person.phoneHref} className="tabular">
+                <Phone aria-hidden="true" size={18} strokeWidth={1.75} />
                 {person.phone}
               </a>
             </li>

@@ -3,6 +3,8 @@
 
 export const person = {
   name: "Shantanu Vichare",
+  // Production origin: canonical URL, sitemap, and absolute social-image links build on it.
+  url: "https://shantanuvr.com",
   role: "Lead QA Engineer, AI Quality Engineering",
   statement:
     "Lead QA engineer at PowerSchool. I build AI agents that write, run, and repair tests.",
@@ -20,10 +22,12 @@ export const lab = {
   heading: "Tests that repair themselves",
   lede: "I lead quality engineering for Schoology at PowerSchool. Our tests are written, run, and repaired by AI agents, and engineers review what they ship. Manual QA effort is down 80%, and Schoology has not had a P0 production incident in over four years.",
   proof: "90%+ of drifted locators are fixed on the first pass, with zero hallucinated steps.",
-  simulatedNote: "Simulated run. Suite names are illustrative.",
+  simulatedNote: "Simulated run. Suite names and schematic are illustrative.",
   suites: ["GRADEBOOK", "ROSTER SYNC", "ASSIGNMENTS", "CALENDAR", "A11Y AUDIT"],
   // Index into `suites` of the row that breaks and heals.
   brokenRow: 2,
+  // Printed behind the broken module: the failing spec, the graph, and what the graph links it to.
+  schematic: ["Assignments spec", "Context graph", "10,000+ tests", "OpenAPI contracts"],
   stages: [
     {
       id: "fail",

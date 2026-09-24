@@ -89,10 +89,10 @@ export default function Lab() {
                 {lab.suites.map((suite, row) => {
                   const broken = row === lab.brokenRow;
                   const status = broken ? current.status : "PASSED";
-                  return (
+                  const line = (
                     <FlapLine
                       key={suite}
-                      className="lab-board-row"
+                      className={broken ? "lab-board-row lab-module" : "lab-board-row"}
                       text={`${fitToCells(suite, SUITE_CELLS)} ${fitToCells(status, STATUS_CELLS)}`}
                       cells={WIDTH}
                       accentFrom={SUITE_CELLS + 1}
@@ -101,6 +101,25 @@ export default function Lab() {
                       delay={row * 110}
                       srText={false}
                     />
+                  );
+                  if (!broken) return line;
+                  // The broken module lifts out on a top hinge; the cavity behind it opens to
+                  // show what the agent checks, and wires up while the repair runs.
+                  return (
+                    <div key={suite} className="lab-slot" data-stage={current.id}>
+                      {line}
+                      <div className="lab-cavity">
+                        <div>
+                          <div className="lab-schematic">
+                            {lab.schematic.map((node) => (
+                              <span key={node} className="board-label lab-node">
+                                {node}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   );
                 })}
                 <FlapLine

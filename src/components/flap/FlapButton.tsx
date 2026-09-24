@@ -22,7 +22,8 @@ function Faces({ children }: { children: ReactNode }) {
       <span className="btn-sizer" aria-hidden="true">
         {children}
       </span>
-      <span className="btn-visual" aria-hidden="true">
+      {/* Four printed copies of the label; keep them out of search snippets. */}
+      <span className="btn-visual" aria-hidden="true" data-nosnippet="">
         <span className="btn-face btn-face-top">
           <span className="btn-label">{children}</span>
         </span>

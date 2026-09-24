@@ -190,6 +190,13 @@ The hero board spans the container with tight 5% gutters so it reads as one mech
 
 Depth belongs to the boards alone. The page ground is flat; the only lifted objects are board housings, which read as physical signage with a top bevel highlight, a bottom inner shadow, a hairline edge, and a long soft drop shadow tinted to the ground. Inside, the well is recessed with an inner shadow and the modules sit in it. On the WebGL hero, a pointer-driven light adds a moving sheen and each falling leaf casts a shadow onto the card below it.
 
+Three boards carry extra physical depth, and nothing else does:
+- **Hero:** the housing leans up to 2° away from the pointer. Its side wall shows below and on whichever side comes closer, and the well's inner shadow follows the lean. Knocked modules hang a little crooked. Modules under repair project forward about 3% and brighten, then settle back.
+- **Lab:** the broken module goes out of line on Fail. On Diagnose it lifts out on a top hinge and a cavity opens behind it, showing an illustrative schematic: the failing spec wired to the context graph, which fans out to tests and API contracts. On Repair the wires light amber, one hop at a time, as the module seats itself again. On Review everything closes.
+- **Contact:** the email board is a key. It travels down onto its skirt while pressed and springs back with a small overshoot as the confirmation flips in.
+
+Result modules have an edge, a contact shadow, and axle pins at the hinge. A hovered row's modules lift 2px while the board stays still. Reduced motion shows every board still and closed.
+
 ### Shadow Vocabulary
 - **Board housing** (`box-shadow: inset 0 1px 0 rgb(255 255 255 / .09), inset 0 -2px 0 rgb(0 0 0 / .45), 0 0 0 1px housing-edge, 0 30px 60px -30px rgb(24 30 38 / .55), 0 10px 20px -12px rgb(24 30 38 / .35)`): every board.
 - **Board well** (`box-shadow: inset 0 2px 6px rgb(0 0 0 / .6)`): the recess behind modules.
@@ -224,6 +231,10 @@ Small, mechanical radii. Flap cards are rounded at their outer corners (about 7%
 
 ### Text links
 - Graphite Ink with a Strong Hairline underline at 0.25em offset that darkens to the text colour on hover; external links end in an up-right arrow.
+
+### Icons
+- Lucide line icons only, in the text colour, never brand-coloured. LinkedIn and GitHub are drawn on lucide's grid to match (`src/components/icons.tsx`), because lucide no longer ships brand marks.
+- Contact links lead with the icon for their channel (18px, 1.75 stroke). "Email me" buttons carry a mail icon and "Resume" buttons a document icon (2 stroke, as the label is heavy). Nav text links stay text only.
 
 ## Do's and Don'ts
 

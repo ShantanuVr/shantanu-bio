@@ -16,6 +16,7 @@
 
   --housing: #232528;
   --housing-edge: #3a3d42;
+  --housing-side: color-mix(in oklab, var(--housing), #000 50%);
   --board-interior: #0c0d0e;
   --flap: #1c1d1f;
   --flap-top: #232427;
@@ -46,6 +47,7 @@
     --shadow-tint: 0 0 0;
     --housing: #1e2124;
     --housing-edge: #3d4248;
+    --housing-side: color-mix(in oklab, var(--housing), #000 50%);
     color-scheme: dark;
   }
 }
@@ -268,6 +270,10 @@ section[id] {
   display: grid;
   place-items: center;
   padding-top: 0.04em;
+}
+
+.flap-glyph::before {
+  content: attr(data-ch);
 }
 
 .flap-top .flap-glyph,
@@ -728,7 +734,19 @@ section[id] {
 }
 
 .hero-board {
+  --tx: 0;
+  --ty: 0;
   padding: clamp(7px, 0.9vw, 14px);
+  /* Leans up to 2deg away from the pointer (board-controller writes --tx and --ty). The
+     side wall shows below, as seen from the concourse, and on whichever side comes closer. */
+  transform: perspective(1800px) rotateX(calc(var(--ty) * -2deg)) rotateY(calc(var(--tx) * 2deg));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 -2px 0 rgb(0 0 0 / 0.45),
+    0 0 0 1px var(--housing-edge),
+    calc(var(--tx) * -3px) calc(4px - var(--ty) * 3px) 0 1px var(--housing-side),
+    calc(var(--tx) * -12px) calc(34px - var(--ty) * 8px) 64px -30px rgb(var(--shadow-tint) / 0.58),
+    calc(var(--tx) * -5px) calc(13px - var(--ty) * 4px) 22px -12px rgb(var(--shadow-tint) / 0.38);
   touch-action: pan-y;
   -webkit-user-select: none;
   user-select: none;
@@ -737,6 +755,8 @@ section[id] {
 .hero-interior {
   container-type: inline-size;
   padding: clamp(6px, 0.8vw, 12px);
+  /* The near wall of the well hides more of the floor as the board leans. */
+  box-shadow: inset calc(var(--tx) * 2px) calc(2px + var(--ty) * 1.5px) 7px rgb(0 0 0 / 0.65);
 }
 
 .hero-grid {
@@ -926,6 +946,9 @@ section[id] {
   height: 100svh;
   display: flex;
   align-items: center;
+  /* When the open cavity makes the layout taller than a short screen, pin it to the top
+     so the stage rail never slides under the nav. */
+  align-items: safe center;
 }
 
 .lab-track[data-static="true"] {
@@ -1016,6 +1039,172 @@ section[id] {
 
 .lab-head-status {
   grid-column: 14 / span 7;
+}
+
+/* The broken suite's module: out of line when it fails, lifted out of the board on a top
+   hinge while it is diagnosed and repaired, seated again for review. It rides on a plate
+   the colour of the well, so only its edge and shadow show once it lifts. */
+.lab-module {
+  --dx: 0px;
+  --dy: 0px;
+  --dz: 0px;
+  --rx: 0deg;
+  --rz: 0deg;
+  --lift: 0;
+  --plate: clamp(3px, 0.4vw, 6px);
+  position: relative;
+  z-index: 1;
+  border-radius: 3px;
+  transform-origin: 50% 0;
+  transform: perspective(900px) translate3d(var(--dx), var(--dy), var(--dz)) rotateX(var(--rx)) rotate(var(--rz));
+  box-shadow:
+    0 0 0 var(--plate) var(--board-interior),
+    0 0 0 calc(var(--plate) + 1px) rgb(255 255 255 / calc(var(--lift) * 0.1)),
+    0 calc(var(--lift) * 16px) calc(var(--lift) * 22px) calc(var(--lift) * 2px) rgb(0 0 0 / 0.75);
+  transition:
+    transform 560ms var(--ease-out),
+    box-shadow 560ms var(--ease-out);
+}
+
+.lab-slot[data-stage="fail"] .lab-module {
+  --dx: 5px;
+  --dy: 3px;
+  --rz: -0.6deg;
+}
+
+.lab-slot[data-stage="diagnose"] .lab-module {
+  --dz: 26px;
+  --rx: 20deg;
+  --lift: 1;
+}
+
+.lab-slot[data-stage="repair"] .lab-module {
+  --dz: 10px;
+  --rx: 6deg;
+  --lift: 0.5;
+}
+
+.lab-cavity {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 520ms var(--ease-out);
+}
+
+.lab-cavity > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.lab-slot:is([data-stage="diagnose"], [data-stage="repair"]) .lab-cavity {
+  grid-template-rows: 1fr;
+}
+
+/* Backplane schematic: the failing spec wired to the context graph, which fans out to the
+   tests and contracts it checks against. Wires are borders on pseudo-elements. */
+.lab-schematic {
+  --wire: clamp(12px, 2.6vw, 36px);
+  --trace: rgb(255 255 255 / 0.16);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 1fr 1fr;
+  gap: 6px var(--wire);
+  align-items: center;
+  margin-top: clamp(8px, 1vw, 14px);
+  padding: clamp(12px, 1.6vw, 20px) clamp(8px, 1.2vw, 16px);
+  border-radius: 4px;
+  background: #070808 radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1.2px) 0 0 / 12px 12px;
+  box-shadow: inset 0 3px 10px rgb(0 0 0 / 0.8);
+}
+
+.lab-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 2.6em;
+  padding: 0.45em 0.4em 0.35em;
+  border: 1px solid var(--trace);
+  border-radius: 2px;
+  font-size: clamp(0.6rem, 0.48rem + 0.42vw, 0.84rem);
+  text-align: center;
+  text-wrap: balance;
+  transition:
+    border-color 240ms var(--ease-out),
+    color 240ms var(--ease-out);
+}
+
+.lab-node:nth-child(1) {
+  grid-area: 1 / 1 / 3 / 2;
+}
+
+.lab-node:nth-child(2) {
+  grid-area: 1 / 2 / 3 / 3;
+}
+
+.lab-node:nth-child(3),
+.lab-node:nth-child(4) {
+  grid-column: 3;
+  align-self: stretch;
+}
+
+.lab-node::before,
+.lab-node::after {
+  position: absolute;
+  border: 0 solid var(--trace);
+  transition: border-color 240ms var(--ease-out);
+}
+
+.lab-node:nth-child(-n + 2)::after {
+  content: "";
+  left: 100%;
+  top: 50%;
+  width: calc(var(--wire) + 1px);
+  border-top-width: 1px;
+}
+
+.lab-node:nth-child(2)::after {
+  width: calc(var(--wire) / 2);
+}
+
+.lab-node:nth-child(n + 3)::before {
+  content: "";
+  right: 100%;
+  width: calc(var(--wire) / 2 + 1px);
+  height: calc(50% + 3px);
+  border-left-width: 1px;
+}
+
+.lab-node:nth-child(3)::before {
+  top: 50%;
+  border-top-width: 1px;
+}
+
+.lab-node:nth-child(4)::before {
+  bottom: 50%;
+  border-bottom-width: 1px;
+}
+
+.lab-slot[data-stage="diagnose"] .lab-node:first-child {
+  border-color: var(--fault);
+  color: var(--fault);
+}
+
+/* Repair: the connections come live one hop at a time. */
+.lab-slot[data-stage="repair"] .lab-schematic {
+  --trace: var(--amber);
+}
+
+.lab-slot[data-stage="repair"] .lab-node:first-child {
+  color: var(--amber);
+}
+
+.lab-slot[data-stage="repair"] .lab-node:nth-child(2),
+.lab-slot[data-stage="repair"] .lab-node:nth-child(-n + 2)::after {
+  transition-delay: 140ms;
+}
+
+.lab-slot[data-stage="repair"] .lab-node:nth-child(n + 3),
+.lab-slot[data-stage="repair"] .lab-node:nth-child(n + 3)::before {
+  transition-delay: 280ms;
 }
 
 .lab-board-note {
@@ -1166,6 +1355,39 @@ section[id] {
 .results-value {
   width: clamp(132px, 27vw, 380px);
   vertical-align: middle;
+}
+
+/* Result modules: an edge, a contact shadow in the well, and the axle pins either side of
+   the hinge. A hovered row's modules lift a couple of pixels; the board stays still. */
+.results-value .flap {
+  border-radius: var(--r);
+  box-shadow:
+    0 1px 0 #050506,
+    0 calc(var(--cw) * 0.06) calc(var(--cw) * 0.1) rgb(0 0 0 / 0.6);
+  transition:
+    translate 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+
+.results-value .flap::before {
+  content: "";
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: calc(50% - 1.5px);
+  height: 3px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #4a4d52 0 8%, transparent 0 92%, #4a4d52 0);
+  z-index: 3;
+}
+
+@media (hover: hover) {
+  .results-table tbody tr:hover .flap {
+    translate: 0 -2px;
+    box-shadow:
+      0 1px 0 #050506,
+      0 calc(var(--cw) * 0.16) calc(var(--cw) * 0.22) rgb(0 0 0 / 0.7);
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1460,16 +1682,49 @@ section[id] {
   text-wrap: balance;
 }
 
+/* The email board is a key: it travels down onto its skirt while pressed and springs back
+   as the confirmation flips in. --press is 0 at rest, 1 bottomed out. */
+@property --press {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 .connect-board {
+  --press: 0;
   display: block;
   width: 100%;
   text-align: left;
   cursor: copy;
-  transition: transform 140ms var(--ease-out);
+  translate: 0 calc(var(--press) * 5px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 -2px 0 rgb(0 0 0 / 0.45),
+    0 0 0 1px var(--housing-edge),
+    0 calc(1px + (1 - var(--press)) * 5px) 0 1px var(--housing-side),
+    0 calc(30px - var(--press) * 20px) 60px -30px rgb(var(--shadow-tint) / 0.55),
+    0 calc(10px - var(--press) * 6px) 20px -12px rgb(var(--shadow-tint) / 0.35);
+  transition: --press 90ms var(--ease-out);
 }
 
 .connect-board:active {
-  transform: translateY(1px);
+  --press: 1;
+}
+
+.connect-board[data-copied="true"] {
+  animation: key-rebound 460ms var(--ease-out);
+}
+
+@keyframes key-rebound {
+  from {
+    --press: 1;
+  }
+  45% {
+    --press: -0.2;
+  }
+  to {
+    --press: 0;
+  }
 }
 
 .connect-interior {
@@ -1524,6 +1779,12 @@ section[id] {
   text-decoration: underline;
   text-decoration-color: var(--rule-strong);
   transition: text-decoration-color 160ms var(--ease-out);
+}
+
+/* A leading icon names the channel; it sits a little further off the word than the
+   trailing external arrow does. */
+.connect-links a > svg:first-child {
+  margin-right: 4px;
 }
 
 .connect-links a:hover {

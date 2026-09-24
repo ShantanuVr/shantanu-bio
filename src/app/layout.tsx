@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Sofia_Sans, Sofia_Sans_Extra_Condensed } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { person } from "@/content/profile";
 
 const sofia = Sofia_Sans({
   subsets: ["latin"],
@@ -20,6 +21,8 @@ const description =
   "Lead QA engineer at PowerSchool building AI agents that write, run, and repair tests: multi-agent QA with Playwright, MCP, and GitHub Copilot agents. Manual QA effort down 80%, zero P0 incidents in 4+ years.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(person.url),
+  alternates: { canonical: "/" },
   title: "Shantanu Vichare | Lead QA Engineer, AI Quality Engineering",
   description,
   keywords: [
@@ -43,9 +46,12 @@ export const metadata: Metadata = {
     title: "Shantanu Vichare, Lead QA Engineer",
     description,
     type: "profile",
+    url: "/",
+    siteName: person.name,
+    locale: "en_US",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Shantanu Vichare, Lead QA Engineer",
     description,
   },

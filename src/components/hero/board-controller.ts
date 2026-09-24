@@ -26,6 +26,9 @@ export class BoardController {
   private layoutKey = "";
   private light: LightState = { x: 0, y: 0, mix: 0 };
   private target: LightState = { x: 0, y: 0, mix: 0 };
+  // The housing leans away from the pointer, -1 to 1 on each axis; CSS turns it into degrees.
+  private tilt = { x: 0, y: 0 };
+  private tiltTarget = { x: 0, y: 0 };
   private last = { x: 0, y: 0, t: 0, has: false };
   private resize: ResizeObserver | null = null;
   private presence: IntersectionObserver | null = null;
@@ -137,6 +140,11 @@ export class BoardController {
     return x >= 0 && y >= 0 && x <= this.width && y <= this.height;
   }
 
+  private aim(x: number, y: number) {
+    const clamp = (v: number) => Math.max(-1, Math.min(1, v));
+    this.tiltTarget = { x: clamp((x / this.width) * 2 - 1), y: clamp((y / this.height) * 2 - 1) };
+  }
+
   private onMove = (e: PointerEvent) => {
     if (!this.model) return;
     const { x, y } = this.toBoard(e);
@@ -145,6 +153,7 @@ export class BoardController {
     if (this.last.has) speed = Math.hypot(x - this.last.x, y - this.last.y) / Math.max(now - this.last.t, 1);
     this.last = { x, y, t: now, has: true };
     this.target = { x, y, mix: 1 };
+    this.aim(x, y);
     // Slow hovers nudge one module; fast sweeps knock a wider path loose.
     if (this.inside(x, y)) this.model.disturb(x, y, this.moduleW * Math.min(0.1 + speed * 0.35, 0.75), now);
     this.kick();
@@ -154,6 +163,7 @@ export class BoardController {
     if (!this.model) return;
     const { x, y } = this.toBoard(e);
     this.target = { x, y, mix: 1 };
+    this.aim(x, y);
     if (this.inside(x, y)) this.model.disturb(x, y, this.moduleW * 0.9, performance.now());
     this.kick();
   };
@@ -161,6 +171,7 @@ export class BoardController {
   private onLeave = () => {
     this.last.has = false;
     this.target = this.restingLight();
+    this.tiltTarget = { x: 0, y: 0 };
     this.kick();
   };
 
@@ -190,13 +201,24 @@ export class BoardController {
     return Math.abs(t.x - l.x) > 0.3 || Math.abs(t.y - l.y) > 0.3 || Math.abs(t.mix - l.mix) > 0.004;
   }
 
+  private stepTilt(): boolean {
+    const l = this.tilt;
+    const t = this.tiltTarget;
+    l.x += (t.x - l.x) * 0.1;
+    l.y += (t.y - l.y) * 0.1;
+    this.surface.style.setProperty("--tx", l.x.toFixed(3));
+    this.surface.style.setProperty("--ty", l.y.toFixed(3));
+    return Math.abs(t.x - l.x) > 0.002 || Math.abs(t.y - l.y) > 0.002;
+  }
+
   private frame = (now: number) => {
     this.raf = 0;
     if (!this.visible || this.disposed || !this.model || !this.renderer) return;
     const busy = this.model.update(now);
     const moving = this.stepLight();
-    this.renderer.render(this.model, now, this.light);
-    if (busy || moving) this.raf = requestAnimationFrame(this.frame);
+    const leaning = this.stepTilt();
+    const settling = this.renderer.render(this.model, now, this.light);
+    if (busy || moving || leaning || settling) this.raf = requestAnimationFrame(this.frame);
   };
 
   private kick() {
@@ -219,6 +241,8 @@ export class BoardController {
     this.surface.removeEventListener("pointermove", this.onMove);
     this.surface.removeEventListener("pointerdown", this.onDown);
     this.surface.removeEventListener("pointerleave", this.onLeave);
+    this.surface.style.removeProperty("--tx");
+    this.surface.style.removeProperty("--ty");
     this.canvas.removeEventListener("webglcontextlost", this.onLost);
     this.renderer?.dispose();
     this.renderer = null;

@@ -2,7 +2,7 @@
 // card, lower card, falling leaf) and the leaf is rotated about its hinge in the
 // vertex shader. Glyphs come from an atlas rasterized at the module's device size.
 import { DRUM, RAISED, RAISE_EM } from "@/lib/drum";
-import type { BoardModel, Module, ModuleView } from "./board-model";
+import { TINT_DRIFT, TINT_HEAL, type BoardModel, type Module, type ModuleView } from "./board-model";
 
 const VERT = `#version 300 es
 precision highp float;
@@ -10,6 +10,7 @@ layout(location = 0) in vec2 aQuad;
 layout(location = 1) in vec4 aRect;
 layout(location = 2) in float aPart;
 layout(location = 3) in vec4 aDyn;
+layout(location = 4) in vec2 aPose;
 
 uniform mat4 uViewProj;
 uniform vec2 uBoard;
@@ -23,6 +24,7 @@ out float vTint;
 out float vShade;
 out vec3 vNormal;
 out vec3 vWorld;
+out float vLift;
 
 void main() {
   float halfH = aRect.w * 0.5;
@@ -64,6 +66,16 @@ void main() {
     n = front ? vec3(0.0, -s, c) : vec3(0.0, s, -c);
   }
 
+  // Pose: a module under repair projects forward (x); a knocked one hangs a little crooked (y).
+  // Both stay inside the gutter so neighbours never overlap.
+  vec2 c = aRect.xy + aRect.zw * 0.5;
+  float lean = aPose.y * (fract(sin(dot(aRect.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.042;
+  vec2 d = (p.xy - c) * (1.0 + 0.03 * aPose.x);
+  float cl = cos(lean);
+  float sl = sin(lean);
+  p.xy = c + vec2(d.x * cl - d.y * sl, d.x * sl + d.y * cl) + vec2(0.0, aPose.y * aRect.w * 0.012);
+  vLift = aPose.x;
+
   vNormal = n;
   vWorld = vec3(p.x - uBoard.x * 0.5, uBoard.y * 0.5 - p.y, p.z);
   gl_Position = uViewProj * vec4(vWorld, 1.0);
@@ -79,6 +91,7 @@ in float vTint;
 in float vShade;
 in vec3 vNormal;
 in vec3 vWorld;
+in float vLift;
 
 uniform sampler2D uAtlas;
 uniform vec2 uAtlasPx;
@@ -135,7 +148,7 @@ void main() {
   float diffuse = max(dot(N, L), 0.0);
   float spec = pow(max(dot(N, H), 0.0), 28.0);
   float pool = exp(-pow(length(uLight.xy - vWorld.xy) / (uLight.z * 1.15), 2.0));
-  vec3 col = base * (0.56 + 0.52 * diffuse) * vShade;
+  vec3 col = base * (0.56 + 0.52 * diffuse) * vShade * (1.0 + 0.12 * vLift);
   col += vec3(1.0, 0.97, 0.9) * spec * (0.03 + 0.08 * uLightMix * pool) * (1.0 - cov * 0.5);
   outColor = vec4(col * mask, mask);
 }`;
@@ -158,6 +171,8 @@ type Atlas = {
 };
 
 const CAP_FRACTION = 0.58;
+// Floats per instance in the dynamic buffer: from, to, angle, tint, lift, loose.
+const DYN = 6;
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace("#", "").trim();
@@ -184,6 +199,8 @@ export class BoardRenderer {
   private rectBuffer: WebGLBuffer;
   private dynBuffer: WebGLBuffer;
   private dyn = new Float32Array(0);
+  // Per module: eased [lift, loose], so the pose settles after the model goes idle.
+  private pose = new Float32Array(0);
   private atlas: Atlas | null = null;
   private uniforms: Record<string, WebGLUniformLocation | null> = {};
   private n = 0;
@@ -253,8 +270,11 @@ export class BoardRenderer {
     this.dynBuffer = gl.createBuffer()!;
     gl.bindBuffer(gl.ARRAY_BUFFER, this.dynBuffer);
     gl.enableVertexAttribArray(3);
-    gl.vertexAttribPointer(3, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(3, 4, gl.FLOAT, false, DYN * 4, 0);
     gl.vertexAttribDivisor(3, 1);
+    gl.enableVertexAttribArray(4);
+    gl.vertexAttribPointer(4, 2, gl.FLOAT, false, DYN * 4, 16);
+    gl.vertexAttribDivisor(4, 1);
 
     gl.bindVertexArray(null);
   }
@@ -279,7 +299,8 @@ export class BoardRenderer {
     }
     gl.bindBuffer(gl.ARRAY_BUFFER, this.rectBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, rects, gl.STATIC_DRAW);
-    this.dyn = new Float32Array(this.n * 3 * 4);
+    this.dyn = new Float32Array(this.n * 3 * DYN);
+    this.pose = new Float32Array(this.n * 2);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.dynBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, this.dyn.byteLength, gl.DYNAMIC_DRAW);
 
@@ -383,20 +404,30 @@ export class BoardRenderer {
     ]);
   }
 
-  render(model: BoardModel, now: number, light: LightState) {
+  /** Draws one frame. Returns true while a module's pose is still easing. */
+  render(model: BoardModel, now: number, light: LightState): boolean {
     const gl = this.gl;
     const atlas = this.atlas;
-    if (!atlas || this.n === 0) return;
+    if (!atlas || this.n === 0) return false;
     const n = this.n;
     const dyn = this.dyn;
+    const pose = this.pose;
+    let settling = false;
     for (let i = 0; i < n; i++) {
       const v = model.view(i, now, this.view);
+      const lift = v.tint === TINT_HEAL ? 1 : 0;
+      const loose = v.tint === TINT_DRIFT ? 1 : 0;
+      pose[i * 2] += (lift - pose[i * 2]) * 0.2;
+      pose[i * 2 + 1] += (loose - pose[i * 2 + 1]) * 0.25;
+      if (Math.abs(lift - pose[i * 2]) > 0.002 || Math.abs(loose - pose[i * 2 + 1]) > 0.002) settling = true;
       for (let part = 0; part < 3; part++) {
-        const o = (part * n + i) * 4;
+        const o = (part * n + i) * DYN;
         dyn[o] = v.from;
         dyn[o + 1] = v.to;
         dyn[o + 2] = v.angle;
         dyn[o + 3] = v.tint;
+        dyn[o + 4] = pose[i * 2];
+        dyn[o + 5] = pose[i * 2 + 1];
       }
     }
     gl.bindBuffer(gl.ARRAY_BUFFER, this.dynBuffer);
@@ -438,6 +469,7 @@ export class BoardRenderer {
     gl.bindVertexArray(this.vao);
     gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, n * 3);
     gl.bindVertexArray(null);
+    return settling;
   }
 
   dispose() {
