@@ -14,7 +14,7 @@ export const person = {
   linkedin: "https://www.linkedin.com/in/shantanuvr/",
   github: "https://github.com/ShantanuVr",
   resume: "/ShantanuVichare.pdf",
-  // Confirmed by Shantanu (2026-09-24); the resume PDF header's "Pune / Mumbai" is outdated.
+  // Confirmed by Shantanu (2026-09-24).
   location: "Bengaluru, India",
 } as const;
 

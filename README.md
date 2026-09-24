@@ -10,11 +10,12 @@ npm run dev        # http://localhost:3000
 npm run build      # production build (static prerender)
 npm run preview    # Cloudflare Workers preview via OpenNext
 npm run deploy     # deploy to Cloudflare Workers
+npm run resume     # rebuild public/ShantanuVichare.pdf from resume/resume.html
 ```
 
 ## Edit the content
 
-Every fact on the page lives in [`src/content/profile.ts`](src/content/profile.ts): the hero statement, the Lab pipeline stages, the results board, the toolkit, roles, education, and contact details. The resume PDF at `public/ShantanuVichare.pdf` is the source of truth for the numbers.
+Every fact on the page lives in [`src/content/profile.ts`](src/content/profile.ts): the hero statement, the Lab pipeline stages, the results board, the toolkit, roles, education, and contact details. The resume ([`resume/resume.html`](resume/resume.html), built to `public/ShantanuVichare.pdf` with `npm run resume`) is the source of truth for the numbers; keep the two in step. The resume shares the site's type and colours but stays ATS-safe; the comments at the top of that file list the rules.
 
 Board text is uppercase and limited to the characters in the drum (`src/lib/drum.ts`); anything else renders as a blank module. Keep board strings within the cell counts used by each section (for example 12 characters for Lab suite names and 7 for results).
 

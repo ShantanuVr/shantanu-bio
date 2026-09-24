@@ -1,0 +1,521 @@
+<!doctype html>
+<!--
+  Source for public/ShantanuVichare.pdf. Build with `npm run resume`.
+  Same faces, colours, and flap vocabulary as the site, kept ATS-safe: one column, real text in
+  reading order, standard section names, no ligatures, contact details in the body, icons as
+  vector paths that never reach the text layer. Nothing that holds text is positioned: Chromium
+  paints positioned boxes in a later pass, and parsers that read in paint order would get the
+  name after the experience section.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shantanu Vichare - Resume</title>
+<meta name="author" content="Shantanu Vichare">
+<style>
+  /* Static weights, not the variable font: Chromium can only embed a variable font as Type 3,
+     which older ATS parsers read less reliably than embedded TrueType. */
+  @font-face {
+    font-family: "Sofia Sans";
+    font-weight: 400;
+    font-display: block;
+    src: url("https://cdn.jsdelivr.net/npm/@fontsource/sofia-sans@5/files/sofia-sans-latin-400-normal.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Sofia Sans";
+    font-weight: 600;
+    font-display: block;
+    src: url("https://cdn.jsdelivr.net/npm/@fontsource/sofia-sans@5/files/sofia-sans-latin-600-normal.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Sofia Sans";
+    font-weight: 700;
+    font-display: block;
+    src: url("https://cdn.jsdelivr.net/npm/@fontsource/sofia-sans@5/files/sofia-sans-latin-700-normal.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Sofia Sans Extra Condensed";
+    font-weight: 700;
+    font-display: block;
+    src: url("https://cdn.jsdelivr.net/npm/@fontsource/sofia-sans-extra-condensed@5/files/sofia-sans-extra-condensed-latin-700-normal.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Sofia Sans Extra Condensed";
+    font-weight: 800;
+    font-display: block;
+    src: url("https://cdn.jsdelivr.net/npm/@fontsource/sofia-sans-extra-condensed@5/files/sofia-sans-extra-condensed-latin-800-normal.woff2") format("woff2");
+  }
+
+  :root {
+    --ink: #15171a;
+    --ink-2: #3b3f46;
+    --ink-3: #585d66;
+    --rule: #c9cdd3;
+    --rule-strong: #9ba1a9;
+    --housing: #232528;
+    --well: #0c0d0e;
+    --paint: #f1ede3;
+    --paint-2: #aaa69c;
+    --amber: #ffb224;
+    --sign: "Sofia Sans Extra Condensed", "Sofia Sans", sans-serif;
+  }
+
+  /* The condensed face's space is narrow enough that some parsers merge words across it
+     ("PROFESSIONALSUMMARY"). Widen spaces only; letter-spacing would split the letters. */
+  h1,
+  h2,
+  h3,
+  .headline,
+  .when {
+    word-spacing: 0.22em;
+  }
+
+  @page {
+    size: A4;
+    margin: 13mm 15mm 13mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: "Sofia Sans", sans-serif;
+    font-size: 9.4pt;
+    line-height: 1.38;
+    color: var(--ink-2);
+    /* Ligatures extract as single code points ("ﬁ") that break keyword matching, and any
+       letter-spacing makes some parsers split capitals apart ("L E A D"), so neither is used. */
+    font-variant-ligatures: none;
+    font-kerning: normal;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  /* The name board: one flap module in its housing. Upper half catches the light, the split
+     shades both halves, and the hinge shows only at the edges so it never strikes the name.
+     All of it is background, so nothing here needs positioning. */
+  .board {
+    padding: 1.6mm;
+    border-radius: 2.4mm;
+    background: var(--housing);
+  }
+
+  .board-face {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6mm;
+    padding: 4.2mm 6mm 3.8mm;
+    border-radius: 1.4mm;
+    background:
+      linear-gradient(var(--well), var(--well)) left center / 4mm 0.6pt no-repeat,
+      linear-gradient(var(--well), var(--well)) right center / 4mm 0.6pt no-repeat,
+      linear-gradient(180deg, #232427, #1c1d1f 34%, #121314 50%, #18191b 66%, #1c1d1f);
+  }
+
+  h1 {
+    font-family: var(--sign);
+    font-weight: 800;
+    font-size: 31pt;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--paint);
+  }
+
+  .headline {
+    display: flex;
+    align-items: center;
+    gap: 2mm;
+    font-family: var(--sign);
+    font-weight: 700;
+    font-size: 10.5pt;
+    text-transform: uppercase;
+    color: var(--paint-2);
+    text-align: right;
+  }
+
+  /* Status lamp: marks what is current, as on the site. */
+  .lamp {
+    flex: none;
+    display: inline-block;
+    width: 5pt;
+    height: 5pt;
+    border-radius: 0.6pt;
+    background: var(--amber);
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4mm 5mm;
+    margin: 3mm 0.5mm 0;
+    font-size: 8.8pt;
+    color: var(--ink-2);
+  }
+
+  .contact li {
+    display: flex;
+    align-items: center;
+    gap: 1.4mm;
+    list-style: none;
+  }
+
+  .contact svg {
+    flex: none;
+    width: 9pt;
+    height: 9pt;
+    fill: none;
+    stroke: var(--ink-3);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  section {
+    margin-top: 4.2mm;
+  }
+
+  h2 {
+    margin-bottom: 2.2mm;
+    padding-bottom: 1mm;
+    border-bottom: 0.75pt solid var(--rule-strong);
+    font-family: var(--sign);
+    font-weight: 800;
+    font-size: 12.5pt;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--ink);
+    break-after: avoid;
+  }
+
+  /* Competencies as printed labels on a hairline, like the Lab schematic nodes. */
+  .labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6mm;
+    list-style: none;
+  }
+
+  .labels li {
+    padding: 0.7mm 2.2mm 0.6mm;
+    border: 0.75pt solid var(--rule);
+    border-radius: 0.8mm;
+    font-size: 8.8pt;
+    color: var(--ink);
+  }
+
+  .role + .role {
+    margin-top: 3.6mm;
+  }
+
+  /* Company and dates, then title and place: the row pairs ATS parsers expect. */
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+    break-after: avoid;
+  }
+
+  h3 {
+    font-family: var(--sign);
+    font-weight: 800;
+    font-size: 12pt;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .when {
+    display: flex;
+    align-items: center;
+    gap: 1.6mm;
+    flex: none;
+    font-family: var(--sign);
+    font-weight: 700;
+    font-size: 10pt;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 10pt;
+    color: var(--ink);
+  }
+
+  .place {
+    flex: none;
+    font-size: 8.8pt;
+    color: var(--ink-3);
+  }
+
+  /* Highlights: a short rule instead of a bullet glyph, as in the site's role list. */
+  .points {
+    margin-top: 1.4mm;
+    list-style: none;
+  }
+
+  .points li {
+    padding-left: 4.2mm;
+    break-inside: avoid;
+  }
+
+  .points li + li {
+    margin-top: 0.7mm;
+  }
+
+  /* Inline in the gutter: -4.2mm + 2.4mm + 1.8mm puts the text back at the padding edge. */
+  .points li::before {
+    content: "";
+    display: inline-block;
+    width: 2.4mm;
+    height: 0.75pt;
+    margin: 0 1.8mm 0 -4.2mm;
+    vertical-align: 0.3em;
+    background: var(--rule-strong);
+  }
+
+  .project + .project {
+    margin-top: 2.2mm;
+  }
+
+  .project {
+    break-inside: avoid;
+  }
+
+  .project h3 {
+    font-size: 10.8pt;
+  }
+
+  .lines {
+    list-style: none;
+  }
+
+  .lines li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4mm;
+  }
+
+  .lines li + li {
+    margin-top: 0.9mm;
+  }
+
+  .skills li + li {
+    margin-top: 0.9mm;
+  }
+
+  .skills {
+    list-style: none;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="board">
+      <div class="board-face">
+        <h1>Shantanu Vichare</h1>
+        <p class="headline"><span class="lamp"></span>Lead QA Engineer, AI Quality Engineering</p>
+      </div>
+    </div>
+    <ul class="contact">
+      <li>
+        <svg viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        <a href="mailto:vichare.shantanu@gmail.com">vichare.shantanu@gmail.com</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+        <a href="tel:+919673993987">+91 96739 93987</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        <a href="https://shantanuvr.com">shantanuvr.com</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        <a href="https://www.linkedin.com/in/shantanuvr/">linkedin.com/in/shantanuvr</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        <a href="https://github.com/ShantanuVr">github.com/ShantanuVr</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        Bengaluru, India
+      </li>
+    </ul>
+  </header>
+
+  <main>
+    <section>
+      <h2>Professional Summary</h2>
+      <p>Lead QA engineer with ~11 years across SaaS quality, test automation, and applied AI. Own quality strategy for PowerSchool's Schoology cloud platform (zero P0 incidents over 4+ years) and ship production AI agent systems (GitHub Copilot Background Agents orchestrating Playwright, Browser, and Jira MCPs) that cut manual QA effort by 80%. Champion self-healing automation, cloud-native testing, and DevSecOps (OWASP ZAP, Burp Suite, SAST, DAST) in CI/CD. MSc AI and ML in progress, Liverpool John Moores University.</p>
+    </section>
+
+    <section>
+      <h2>Core Competencies</h2>
+      <ul class="labels">
+        <li>AI Quality Engineering</li>
+        <li>Agent-Based Test Automation</li>
+        <li>Self-Healing Test Frameworks</li>
+        <li>Cloud-Native Testing Strategies</li>
+        <li>DevSecOps in CI/CD</li>
+        <li>Test Strategy and Mentorship</li>
+        <li>Playwright / WebdriverIO / API Testing</li>
+        <li>Quality Observability and Dashboards</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Work Experience</h2>
+
+      <article class="role">
+        <div class="row">
+          <h3>PowerSchool</h3>
+          <span class="when"><span class="lamp"></span>2020 - Present</span>
+        </div>
+        <div class="row">
+          <p class="title">Lead Quality Assurance Engineer</p>
+          <span class="place">Bengaluru, India</span>
+        </div>
+        <ul class="points">
+          <li><strong>Scope expansion:</strong> Promoted into AI-enabled Quality Engineering leadership in 2023 after 3 years leading Core QA; now own AI test tooling strategy for Schoology while mentoring 20+ engineers across 6 Agile squads.</li>
+          <li><strong>Agentic QA ecosystem:</strong> Architected a multi-agent test platform with Playwright, Browser, and Jira MCPs orchestrated by GitHub Copilot Background Agents and LLMs (Claude, OpenAI, Gemini) for autonomous test authoring, execution, and ticket triage across Schoology.</li>
+          <li><strong>Self-healing AI tests:</strong> Engineered an AI Context Graph anchoring LLM agents to live OpenAPI contracts and canonical suites, so Playwright tests auto-repair drifted locators on UI change with 90%+ first-pass accuracy and zero hallucinated steps.</li>
+          <li><strong>Autonomous API test synthesis:</strong> Designed an agent-driven pipeline that generates, validates, and runs Playwright API tests from OpenAPI specs, retiring manual Postman workflows and lifting regression coverage from 55% to 95%.</li>
+          <li><strong>80% QA effort reduction:</strong> Scaled Cursor- and Copilot-driven agent workflows across the tribe, compressing prompts-per-task from 15 to 2-3 and reclaiming 4+ engineer-weeks per release cycle.</li>
+          <li><strong>Cloud-native test strategy:</strong> Orchestrated containerized Playwright + WebdriverIO runners across ephemeral cloud environments with parallel workers, cutting regression runtime by 70% and unlocking same-day production deployments.</li>
+          <li><strong>DevSecOps in CI/CD:</strong> Embedded OWASP ZAP DAST, Burp Suite checks, dependency audits, and policy gates into Bamboo, GitLab, and GitHub Actions pipelines, blocking vulnerable code at merge time.</li>
+          <li><strong>Zero-incident SaaS quality (4+ years):</strong> Directed QA strategy for Schoology, sustaining zero P0 production incidents while delivering 20+ complex epics on schedule.</li>
+          <li><strong>Quality observability cockpit:</strong> Shipped a MERN-stack internal release tool unifying CI, defect, and test-coverage telemetry through live dashboards, compressing release checklist time from ~4 hours to ~15 minutes.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="row">
+          <h3>FireEye (Mandiant)</h3>
+          <span class="when">2018 - 2020</span>
+        </div>
+        <div class="row">
+          <p class="title">Software Development Engineer in Test</p>
+          <span class="place">Bengaluru, India</span>
+        </div>
+        <ul class="points">
+          <li><strong>Security product test frameworks:</strong> Developed UI and security testing frameworks from scratch for Linux, Windows, and Mac endpoint security products, cutting release escape defects ~35% release-over-release.</li>
+          <li><strong>E2E automation at scale:</strong> Composed Python + Nosetests suites validating detection and prevention across 8+ security releases, shortening regression cycles ~40%.</li>
+          <li><strong>Cross-functional quality:</strong> Partnered with developers and product managers across 5+ distributed teams to triage and resolve complex security software bugs.</li>
+          <li><strong>Methodology uplift:</strong> Spread Python, Selenium, and Robot Framework practices, raising the baseline quality bar for 15+ incoming engineers.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="row">
+          <h3>Quick Heal Technologies</h3>
+          <span class="when">2015 - 2018</span>
+        </div>
+        <div class="row">
+          <p class="title">Associate Threat Research Engineer</p>
+          <span class="place">Pune, India</span>
+        </div>
+        <ul class="points">
+          <li><strong>Automation-first malware triage:</strong> Engineered internal tooling that replaced manual malware analysis workflows, reclaiming ~12 analyst-hours per week for higher-value threat research.</li>
+          <li><strong>Incident response and RCA:</strong> Led customer escalation and root-cause analysis across 50+ security incidents, feeding remediation insights back into the product detection roadmap.</li>
+          <li><strong>Product security features:</strong> Proposed 2 threat-detection capabilities shipped into Quick Heal products, strengthening endpoint protection for millions of users.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+      <div class="project">
+        <h3>AI Context Graph Architecture</h3>
+        <p>Developed an internal grounding framework anchoring LLM test generators to live API contracts and canonical suites: the reusable backbone of the self-healing QA platform at PowerSchool, adopted by 3+ product teams.</p>
+      </div>
+      <div class="project">
+        <h3>Specialist QA Agent Suite</h3>
+        <p>Built specialist downstream agents for accessibility (WCAG 2.1), internationalization (i18n), and security NFR validation plugged into the multi-agent QA platform, automating compliance checks that previously required dedicated manual specialist review.</p>
+      </div>
+      <div class="project">
+        <h3>DevSecOps Pipeline Blueprint</h3>
+        <p>Delivered a reusable CI/CD security blueprint combining OWASP ZAP, Burp Suite, SAST, and dependency audits as gated stages in Bamboo, GitLab, and GitHub Actions, catching 30+ vulnerabilities pre-production.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul class="lines">
+        <li><span><strong>MSc, Machine Learning and Artificial Intelligence</strong> - Liverpool John Moores University, England</span><span class="when"><span class="lamp"></span>2025 - 2027</span></li>
+        <li><span><strong>Post Graduate Diploma, AI and ML</strong> - IIIT Bangalore</span><span class="when">2025 - 2026</span></li>
+        <li><span><strong>Bachelor of Engineering, Information Technology</strong> - Shah and Anchor Kutchhi Engineering College, Mumbai</span><span class="when">2012 - 2015</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Certifications</h2>
+      <ul class="lines">
+        <li><span><strong>CopilotXcelerate: AI-Powered Python for Data Science</strong> - upGrad</span><span class="when">2023</span></li>
+        <li><span><strong>Certified Ethical Hacker (CEH)</strong> - Simplilearn</span><span class="when">2019</span></li>
+        <li><span><strong>Oracle Certified Expert, Database SQL</strong> - Oracle</span><span class="when">2016</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <ul class="skills">
+        <li><strong>AI and Agent Tooling:</strong> Cursor, Claude Code, Playwright MCP, Browser MCP, Jira MCP, GitHub Copilot Background Agents, VS Code Copilot, RAG, Multi-Agent Orchestration, LLMs (Claude / OpenAI / Gemini), AI Context Graphs, Self-Healing Test Generation</li>
+        <li><strong>Test Automation:</strong> Playwright, Selenium, WebdriverIO, Robot Framework, PHP Codeception, Nosetests, BDD, API Testing, Visual Regression Testing</li>
+        <li><strong>Cloud and CI/CD:</strong> Bamboo, GitLab, GitHub Actions, Containerized Test Runners, Parallel Workers, Ephemeral Environments, Cloud-Native SaaS Testing</li>
+        <li><strong>Security and Performance:</strong> OWASP ZAP, Burp Suite, OWASP Top 10, DevSecOps, SAST, DAST, Dependency Scanning, JMeter, LoadRunner, Penetration Testing</li>
+        <li><strong>Engineering:</strong> Python, TypeScript, JavaScript, PHP, MERN Stack</li>
+        <li><strong>Process:</strong> Agile and Scrum, Test Strategy and Planning, Mentorship, Risk Assessment, Vendor Management, Compliance</li>
+        <li><strong>Languages:</strong> English, Hindi, Marathi</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+    // Keep hyphenated compounds on one line. PDF readers join a line-end hyphen to the next
+    // line as if it were a soft hyphen ("prompts-" + "per-task" read as "promptsper-task").
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) if (/\S-\S/.test(walker.currentNode.data)) nodes.push(walker.currentNode);
+    for (const node of nodes) {
+      node.replaceWith(
+        ...node.data.split(/(\S+-\S+)/).map((part, i) => {
+          if (i % 2 === 0) return part;
+          const span = document.createElement("span");
+          span.className = "nowrap";
+          span.textContent = part;
+          return span;
+        }),
+      );
+    }
+  </script>
+</body>
+</html>
