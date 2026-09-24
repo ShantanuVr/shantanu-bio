@@ -49,3 +49,6 @@ next-env.d.ts
 !.dev.vars.example
 !.env.example
 INTERVIEW_PREP_CI_ENGINEER.md
+
+# impeccable review captures (regenerated evidence, large)
+.impeccable/review/

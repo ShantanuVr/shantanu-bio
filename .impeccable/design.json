@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-23T19:10:04+00:00",
+  "title": "Design System: Shantanu Vichare",
+  "extensions": {
+    "colorMeta": {
+      "signal-amber": {
+        "role": "primary",
+        "displayName": "Signal Amber",
+        "canonical": "#ffb224",
+        "oklch": "oklch(81.7% 0.164 75.8)",
+        "tonalRamp": [
+          "#130900",
+          "#342000",
+          "#5a3b00",
+          "#825700",
+          "#ad7600",
+          "#d79728",
+          "#f2c077",
+          "#ffebd0"
+        ]
+      },
+      "fault-red": {
+        "role": "secondary",
+        "displayName": "Fault Red",
+        "canonical": "#ec5a50",
+        "oklch": "oklch(65.7% 0.182 27.1)",
+        "tonalRamp": [
+          "#1f0000",
+          "#4d0003",
+          "#810008",
+          "#b21e1e",
+          "#d84c44",
+          "#f77a6e",
+          "#ffb3a9",
+          "#ffe9e5"
+        ]
+      },
+      "concourse-aluminium": {
+        "role": "neutral",
+        "displayName": "Concourse Aluminium",
+        "canonical": "#e6e8eb",
+        "oklch": "oklch(93.0% 0.005 258.3)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a3a5a7",
+          "#c8c9cb",
+          "#eeeeef"
+        ]
+      },
+      "graphite-ink": {
+        "role": "neutral",
+        "displayName": "Graphite Ink",
+        "canonical": "#15171a",
+        "oklch": "oklch(20.4% 0.007 258.4)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232528",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a9",
+          "#c7c9cc",
+          "#edeef0"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#3b3f46",
+        "oklch": "oklch(36.7% 0.013 261.7)",
+        "tonalRamp": [
+          "#090b0f",
+          "#22252b",
+          "#3e4249",
+          "#5d6169",
+          "#7e838a",
+          "#a1a5ac",
+          "#c6c9cf",
+          "#edeef1"
+        ]
+      },
+      "timetable-grey": {
+        "role": "neutral",
+        "displayName": "Timetable Grey",
+        "canonical": "#585d66",
+        "oklch": "oklch(47.7% 0.016 262.3)",
+        "tonalRamp": [
+          "#090b0f",
+          "#22252c",
+          "#3e424a",
+          "#5c616a",
+          "#7d838c",
+          "#a0a5ae",
+          "#c5c9d0",
+          "#eceef2"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#c9cdd3",
+        "oklch": "oklch(84.7% 0.009 258.3)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232529",
+          "#3f4247",
+          "#5e6167",
+          "#7f8388",
+          "#a2a5aa",
+          "#c7c9cd",
+          "#edeef0"
+        ]
+      },
+      "housing-graphite": {
+        "role": "neutral",
+        "displayName": "Housing Graphite",
+        "canonical": "#232528",
+        "oklch": "oklch(26.4% 0.006 258.4)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232528",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a8",
+          "#c7c9cc",
+          "#edeef0"
+        ]
+      },
+      "board-well": {
+        "role": "neutral",
+        "displayName": "Board Well",
+        "canonical": "#0c0d0e",
+        "oklch": "oklch(15.8% 0.003 248.0)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a6",
+          "#c8c9ca",
+          "#eeeeef"
+        ]
+      },
+      "flap-black": {
+        "role": "neutral",
+        "displayName": "Flap Black",
+        "canonical": "#1c1d1f",
+        "oklch": "oklch(23.1% 0.004 264.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a4a5a7",
+          "#c8c9cb",
+          "#eeeeef"
+        ]
+      },
+      "flap-paint": {
+        "role": "neutral",
+        "displayName": "Flap Paint",
+        "canonical": "#f1ede3",
+        "oklch": "oklch(94.6% 0.014 88.7)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#27251f",
+          "#45423a",
+          "#646158",
+          "#868279",
+          "#a8a59d",
+          "#cbc9c3",
+          "#f0eeeb"
+        ]
+      },
+      "printed-label": {
+        "role": "neutral",
+        "displayName": "Printed Label",
+        "canonical": "#aaa69c",
+        "oklch": "oklch(72.6% 0.015 88.7)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#27251e",
+          "#45423a",
+          "#656158",
+          "#868279",
+          "#a8a59c",
+          "#ccc9c2",
+          "#f0eeeb"
+        ]
+      },
+      "night-ground": {
+        "role": "neutral",
+        "displayName": "Night Concourse",
+        "canonical": "#0e1012",
+        "oklch": "oklch(17.2% 0.005 248.1)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232527",
+          "#404245",
+          "#5f6164",
+          "#808385",
+          "#a3a5a8",
+          "#c7c9cb",
+          "#edeeef"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "flap": {
+        "displayName": "Flap",
+        "purpose": "Every character on every split-flap board, including the hero name. Uppercase, sized from the module."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings set as concourse signage: condensed 800 capitals."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Role titles and pipeline stage names."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Hero statement and section introductions."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Highlights and descriptions, near 64ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, buttons, board column headers, toolkit categories, dates."
+      }
+    },
+    "shadows": [
+      {
+        "name": "board-housing",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.09), inset 0 -2px 0 rgb(0 0 0 / 0.45), 0 0 0 1px #3a3d42, 0 30px 60px -30px rgb(24 30 38 / 0.55), 0 10px 20px -12px rgb(24 30 38 / 0.35)",
+        "purpose": "Every board housing: bevel, edge, long tinted drop shadow."
+      },
+      {
+        "name": "board-well",
+        "value": "inset 0 2px 6px rgb(0 0 0 / 0.6)",
+        "purpose": "The recess the modules sit in."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "State transitions: nav ground, captions, lamps, link colour."
+      },
+      {
+        "name": "ease-fall",
+        "value": "cubic-bezier(0.55, 0, 0.9, 0.45)",
+        "purpose": "A flap leaf falling under gravity (button hover)."
+      },
+      {
+        "name": "flap-step",
+        "value": "46ms to 58ms per drum step",
+        "purpose": "One flap landing; cascades run forward through the drum."
+      },
+      {
+        "name": "flap-leaf-curve",
+        "value": "angle = 180deg * p^1.7 (DOM), p^1.6 plus a 150ms settle bounce (WebGL)",
+        "purpose": "Slow release, fast arrival."
+      },
+      {
+        "name": "repair-delay",
+        "value": "850ms after a module's last touch",
+        "purpose": "How long a knocked flap stays red before the repair sweep reaches it."
+      },
+      {
+        "name": "board-recede",
+        "value": "scroll-driven (animation-timeline: view()), exit 0% to 100%",
+        "purpose": "The hero board tips back 16deg as the hero scrolls away."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "connect-wide",
+        "value": "760px"
+      },
+      {
+        "name": "nav",
+        "value": "820px"
+      },
+      {
+        "name": "hero-foot",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "hero-columns",
+        "value": "aspect ratio 7/4, 49/25, 109/50, 12/5 add a column each; portrait adds two rows"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single primary action (Email me). A split-flap module in Signal Amber.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Email me</a>",
+      "css": ".ds-btn{position:relative;display:inline-flex;align-items:center;gap:.5em;height:52px;padding:0 22px;border:0;border-radius:4px;font:750 1.12rem/1 'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1)}.ds-btn::after{content:'';position:absolute;left:0;right:0;top:calc(50% - .5px);height:1px;background:linear-gradient(90deg,rgb(0 0 0/.3) 0 15px,transparent 0 calc(100% - 15px),rgb(0 0 0/.3) 0)}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid #15171a;outline-offset:3px}.ds-btn-primary{background:linear-gradient(180deg,#ffb224 50%,#e8a220 50%);color:#16130b;text-decoration:none}.ds-btn-primary:hover{filter:brightness(1.04)}"
+    },
+    {
+      "name": "Board Button",
+      "kind": "button",
+      "refersTo": "button-board",
+      "description": "Secondary actions (Resume). Flap Black with paint text and a hairline edge.",
+      "html": "<a class=\"ds-btn ds-btn-board\" href=\"#\">Resume &#8599;</a>",
+      "css": ".ds-btn{position:relative;display:inline-flex;align-items:center;gap:.5em;height:52px;padding:0 22px;border:0;border-radius:4px;font:750 1.12rem/1 'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1)}.ds-btn::after{content:'';position:absolute;left:0;right:0;top:calc(50% - .5px);height:1px;background:linear-gradient(90deg,rgb(0 0 0/.3) 0 15px,transparent 0 calc(100% - 15px),rgb(0 0 0/.3) 0)}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid #15171a;outline-offset:3px}.ds-btn-board{background:linear-gradient(180deg,#1c1d1f 50%,#19191b 50%);color:#f1ede3;box-shadow:0 0 0 1px #3a3d42;text-decoration:none}.ds-btn-board:hover{background:#232427}"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Condensed uppercase section link; the section in view gets an amber underline.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#\" aria-current=\"true\">Lab</a><a class=\"ds-nav-link\" href=\"#\">Experience</a><a class=\"ds-nav-link\" href=\"#\">Education</a></nav>",
+      "css": ".ds-nav{display:flex;gap:28px;padding:16px;background:#e6e8eb}.ds-nav-link{font:700 1.06rem/1 'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;color:#3b3f46;padding:8px 2px;transition:color 160ms cubic-bezier(.16,1,.3,1)}.ds-nav-link:hover{color:#15171a}.ds-nav-link[aria-current=true]{color:#15171a;box-shadow:inset 0 -2px 0 #ffb224}.ds-nav-link:focus-visible{outline:2px solid #15171a;outline-offset:3px}"
+    },
+    {
+      "name": "Split-flap Board",
+      "kind": "custom",
+      "refersTo": "flap-module",
+      "description": "The signature: a housing, a recessed well, and fixed character cells split by a hinge line. Tone marks state.",
+      "html": "<div class=\"ds-board\"><div class=\"ds-well\"><span class=\"ds-flap\">H</span><span class=\"ds-flap\" data-tone=\"live\">E</span><span class=\"ds-flap\" data-tone=\"fault\">A</span><span class=\"ds-flap\">L</span></div></div>",
+      "css": ".ds-board{display:inline-block;background:#232528;border-radius:14px;padding:12px;box-shadow:inset 0 1px 0 rgb(255 255 255/.09),inset 0 -2px 0 rgb(0 0 0/.45),0 0 0 1px #3a3d42,0 30px 60px -30px rgb(24 30 38/.55)}.ds-well{display:flex;gap:4px;padding:10px;background:#0c0d0e;border-radius:6px;box-shadow:inset 0 2px 6px rgb(0 0 0/.6)}.ds-flap{position:relative;width:44px;height:66px;border-radius:3px;background:linear-gradient(180deg,#232427,#1c1d1f 49.6%,#121314 50%,#18191b 60%,#1c1d1f);color:#f1ede3;font:800 52px/66px 'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;text-align:center;text-transform:uppercase}.ds-flap::after{content:'';position:absolute;left:0;right:0;top:calc(50% - .5px);height:1px;background:#0c0d0e}.ds-flap[data-tone=live]{color:#ffb224}.ds-flap[data-tone=fault]{color:#ec5a50}"
+    },
+    {
+      "name": "Status Lamp",
+      "kind": "chip",
+      "refersTo": "",
+      "description": "A square lamp and one sentence of real state. Amber only when live.",
+      "html": "<p class=\"ds-status\"><span class=\"ds-lamp\"></span>7 flaps out of place. Repairing&hellip;</p>",
+      "css": ".ds-status{display:flex;align-items:center;gap:10px;margin:0;font:400 .94rem/1.5 'Sofia Sans',system-ui,sans-serif;color:#585d66}.ds-lamp{width:8px;height:8px;border-radius:1px;background:#ec5a50}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Departures Board That Repairs Itself",
+    "overview": "The page is a concourse in daylight: a pale aluminium ground, graphite type, and black split-flap boards mounted on it like station signage. Every fact that matters (the name, the pipeline states, the measured results, the current role, the email address) arrives on flap modules that fall forward through a fixed character drum. The boards are the imagery; there is no photography and no illustration.\n\nThe system is dense only on the boards and quiet everywhere else. Sections alternate between a black board carrying data and calm typographic passages on the aluminium ground, so the eye rests between boards. Motion happens only when information changes: a board flips when it arrives, when a stage advances, or when a role scrolls into reading position. The hero board is the one authored moment: the visitor can knock its letters loose and watch it repair itself.\n\nDark mode is the same concourse at night. The ground and type invert; the boards never change.",
+    "keyCharacteristics": [
+      "Black split-flap boards on a light aluminium ground; boards are theme-invariant.",
+      "One condensed grotesque on every flap, every label, every button.",
+      "Colour is state: amber for live, healing, current, and the one primary action; dim red only for failure.",
+      "Motion is information arriving, never decoration.",
+      "Numbers keep their honesty: approximate figures carry \"~\", demonstration data is labelled simulated."
+    ],
+    "rules": [
+      {
+        "name": "The Colour Is State Rule",
+        "body": "Amber and red appear only when something is live, healing, current, failing, or is the primary action. A static element that is coloured is a defect.",
+        "section": "colors"
+      },
+      {
+        "name": "The Invariant Board Rule",
+        "body": "Boards keep their black flaps, paint glyphs, amber, and red in both themes. Only the concourse around them changes.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Face On The Board Rule",
+        "body": "Nothing on a board is set in anything but the condensed flap face. Body text never appears on a flap.",
+        "section": "typography"
+      },
+      {
+        "name": "The Signs And Reading Rule",
+        "body": "If it names a place on the page (a section, a column, a control), it is a sign: condensed capitals. If it explains, it is reading: Sofia Sans in sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Clear Hinge Rule",
+        "body": "A glyph whose stroke sits on the hinge (\"+\", \"~\") is lifted 0.13em so the split cannot erase it. A value that misreads on the board is a factual error, not a styling one.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Kicker Rule",
+        "body": "No section heading carries a small label above it. Labels exist only where they name data (a column, a group, a board row).",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Objects Cast Shadows Rule",
+        "body": "Text, links, lists, and sections are flat. If it casts a shadow, it is a board.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put new facts on a board when they are data (numbers, statuses, names, dates) and in Sofia Sans prose when they need reading.",
+      "Do keep boards black with Flap Paint glyphs in both themes.",
+      "Do reserve Signal Amber for live state and the single primary action, and Fault Red for failure.",
+      "Do keep \"~\" on approximate figures and label demonstration data as simulated.",
+      "Do give every animated board a reduced-motion rendering that shows its final state immediately.",
+      "Do check every board value at 390px and 1440px for glyphs the hinge could erase."
+    ],
+    "donts": [
+      "Don't put a kicker or eyebrow label above a section heading.",
+      "Don't colour anything amber or red for decoration.",
+      "Don't set body copy, italics, or a second typeface on a flap.",
+      "Don't animate text blocks on scroll; boards flip, prose stays put.",
+      "Don't use em or en dashes in copy; use hyphens for ranges."
+    ]
+  }
+}
