@@ -224,7 +224,7 @@ export const education = {
     },
   ],
   certifications: [
-    { title: "CopilotXcelerate: AI-Powered Python for Data Science", issuer: "upGrad", year: "2023" },
+    { title: "CopilotXcelerate: AI-Powered Python for Data Science", issuer: "Upgrad", year: "2023" },
     { title: "Certified Ethical Hacker (CEH)", issuer: "Simplilearn", year: "2019" },
     { title: "Oracle Certified Expert, Database SQL", issuer: "Oracle", year: "2016" },
   ],

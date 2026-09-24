@@ -49,7 +49,7 @@ From `public/ShantanuVichare.pdf` unless noted:
 - AI Context Graph indexes 10,000+ test cases and full API docs *(site copy)*; adopted by 3+ product teams.
 - FireEye: ~35% fewer escaped defects release over release, ~40% shorter regression cycles, 8+ security releases.
 - Quick Heal: ~12 analyst-hours per week reclaimed, 50+ incident RCAs, 2 detection capabilities shipped.
-- Education: MSc ML & AI, Liverpool John Moores University (2025-2027, in progress); PG Diploma AI & ML, IIIT Bangalore (2025-2026); BE Information Technology, Mumbai (2012-2015). Certifications: CopilotXcelerate (upGrad 2023), CEH (2019), Oracle Certified Expert SQL (2016).
+- Education: MSc ML & AI, Liverpool John Moores University (2025-2027, in progress); PG Diploma AI & ML, IIIT Bangalore (2025-2026); BE Information Technology, Mumbai (2012-2015). Certifications: CopilotXcelerate (Upgrad 2023), CEH (2019), Oracle Certified Expert SQL (2016).
 
 Absent, and not to be fabricated: portrait photography, testimonials, client logos, public case-study screenshots, open-source project showcases.
 
