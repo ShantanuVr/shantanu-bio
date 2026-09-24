@@ -116,9 +116,9 @@ components:
 
 **Creative North Star: "The Departures Board That Repairs Itself"**
 
-The page is a concourse in daylight: a pale aluminium ground, graphite type, and black split-flap boards mounted on it like station signage. Every fact that matters (the name, the pipeline states, the measured results, the current role, the email address) arrives on flap modules that fall forward through a fixed character drum. The boards are the imagery; there is no photography and no illustration.
+The page is a concourse in daylight: a pale aluminium ground, graphite type, and black split-flap boards mounted on it like station signage. Every fact that matters (the name, the pipeline states, the measured results, the current role, the email address) arrives on flap modules that fall forward through a fixed character drum. The boards are the primary imagery. A 3D repair agent beside the introduction extends the mechanical world with a character, floating test cartridges, and a machined dock.
 
-The system is dense only on the boards and quiet everywhere else. Sections alternate between a black board carrying data and calm typographic passages on the aluminium ground, so the eye rests between boards. Motion happens only when information changes: a board flips when it arrives, when a stage advances, or when a role scrolls into reading position. The hero board is the one authored moment: the visitor can knock its letters loose and watch it repair itself.
+The system is dense only on the boards and quiet everywhere else. Sections alternate between a black board carrying data and calm typographic passages on the aluminium ground, so the eye rests between boards. Board motion happens when information changes: a board flips when it arrives, when a stage advances, or when a role scrolls into reading position. Visitors can knock the hero letters loose and watch them repair themselves. The companion repair agent adds optional, pausable idle motion and a separate simulated repair interaction.
 
 Dark mode is the same concourse at night. The ground and type invert; the boards never change.
 
@@ -137,7 +137,7 @@ A neutral concourse with one signal colour and one fault colour, both reserved f
 - **Signal Amber** (#ffb224): the lamp of the system. Healing flaps, the current stage and current role lamp, the nav marker for the section in view, and the single primary action ("Email me"). Nothing decorative is ever amber.
 
 ### Secondary
-- **Fault Red** (#ec5a50): flaps knocked out of place, a failed status, a missing locator. Appears only on boards, only for failure, and always resolves to paint or amber.
+- **Fault Red** (#ec5a50): flaps knocked out of place, a failed status, a missing locator. Appears on boards and test cartridges only for failure, and resolves to paint or amber during repair.
 
 ### Neutral
 - **Concourse Aluminium** (#e6e8eb): the page ground in daylight.
@@ -188,7 +188,7 @@ The hero board spans the container with tight 5% gutters so it reads as one mech
 
 ## Elevation & Depth
 
-Depth belongs to the boards alone. The page ground is flat; the only lifted objects are board housings, which read as physical signage with a top bevel highlight, a bottom inner shadow, a hairline edge, and a long soft drop shadow tinted to the ground. Inside, the well is recessed with an inner shadow and the modules sit in it. On the WebGL hero, a pointer-driven light adds a moving sheen and each falling leaf casts a shadow onto the card below it.
+Depth belongs to the boards and the repair-agent exhibit. The page ground is flat. Board housings read as physical signage with a top bevel highlight, a bottom inner shadow, a hairline edge, and a long soft drop shadow tinted to the ground. Inside, the well is recessed with an inner shadow and the modules sit in it. On the WebGL hero, a pointer-driven light adds a moving sheen and each falling leaf casts a shadow onto the card below it.
 
 Three boards carry extra physical depth, and nothing else does:
 - **Hero:** the housing leans up to 2° away from the pointer. Its side wall shows below and on whichever side comes closer, and the well's inner shadow follows the lean. Knocked modules hang a little crooked. Modules under repair project forward about 3% and brighten, then settle back.
@@ -202,7 +202,7 @@ Result modules have an edge, a contact shadow, and axle pins at the hinge. A hov
 - **Board well** (`box-shadow: inset 0 2px 6px rgb(0 0 0 / .6)`): the recess behind modules.
 
 ### Named Rules
-**The Only Objects Cast Shadows Rule.** Text, links, lists, and sections are flat. If it casts a shadow, it is a board.
+**The Only Objects Cast Shadows Rule.** Text, links, lists, and sections are flat. Boards and the repair agent's physical parts cast shadows.
 
 ## Shapes
 
@@ -252,3 +252,9 @@ Small, mechanical radii. Flap cards are rounded at their outer corners (about 7%
 - **Don't** set body copy, italics, or a second typeface on a flap.
 - **Don't** animate text blocks on scroll; boards flip, prose stays put.
 - **Don't** use em or en dashes in copy; use hyphens for ranges.
+
+## Repair agent / SV 01
+
+Added at the owner's request for a distinct 3D character and objects, alongside the existing boards. The agent uses ivory shell panels, graphite displays, metal joints, amber eyes, and split test cartridges. It is an illustrative companion, not a representation of production telemetry. The Run a repair action scans, aligns, and clears a simulated faulty cartridge; completion remains subject to human review in the caption.
+
+The Three.js scene is generated locally and loaded near the viewport. Drag and named rotation/reset buttons inspect the object; the pause control stops ambient motion. Reduced motion renders a still pose and resolves the simulated interaction immediately. Rendering pauses offscreen and in hidden tabs. An inline SVG preserves the character when WebGL cannot initialize. Prose and contact actions remain independent of the scene.
